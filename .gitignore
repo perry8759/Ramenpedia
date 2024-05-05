@@ -1,0 +1,25 @@
+/target/
+*/src/main/resources/local
+*/src/main/resources/local/
+*/target/
+
+.idea
+.vim
+
+*.iml
+
+.DS_Store
+
+*.prefs
+*.classpath
+*.project
+
+# snyk extension
+.dccache
+/.vscode
+
+# Eclipse IDE
+.metadata/
+.gitignore.bak
+
+logs
