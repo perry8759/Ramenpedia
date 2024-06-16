@@ -23,3 +23,5 @@
 .gitignore.bak
 
 logs
+
+/private_info.txt
