@@ -37,4 +37,9 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> getFailInstance(ResponseConstant responseConstant) {
         return new ApiResponse<>(responseConstant.getCode(), responseConstant.getMessage(), null);
     }
+
+    public static <T> ApiResponse<T> getInvalidArgumentFailInstance(String message) {
+        return new ApiResponse<>(ResponseConstant.INVALID_ARGUMENT.getCode(),
+                String.format(ResponseConstant.INVALID_ARGUMENT.getMessage(), message), null);
+    }
 }

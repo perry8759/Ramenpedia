@@ -1,7 +1,7 @@
-package com.ramenpedia.controller.member.dto;
+package com.ramenpedia.controller.hashtag.dto;
 
 import com.ramenpedia.base.BaseRequest;
-import com.ramenpedia.enumerate.ResponseConstant;
+import com.ramenpedia.enumerate.HashtagType;
 import com.ramenpedia.exception.ArgumentException;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +10,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GoogleLoginReq extends BaseRequest {
-
-    private String token;
+public class GetHashtagReq extends BaseRequest {
+    private HashtagType type;
 
     @Override
     public void valid() throws ArgumentException {
-        if (token == null || token.isEmpty()) {
-            throw new ArgumentException("token");
+        if (type == null) {
+            throw new ArgumentException("type");
         }
     }
 }

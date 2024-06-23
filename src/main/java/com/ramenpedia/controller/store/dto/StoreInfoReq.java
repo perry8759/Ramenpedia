@@ -1,7 +1,6 @@
-package com.ramenpedia.controller.member.dto;
+package com.ramenpedia.controller.store.dto;
 
 import com.ramenpedia.base.BaseRequest;
-import com.ramenpedia.enumerate.ResponseConstant;
 import com.ramenpedia.exception.ArgumentException;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +9,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GoogleLoginReq extends BaseRequest {
+public class StoreInfoReq extends BaseRequest {
 
-    private String token;
+    private String storeId;
 
     @Override
     public void valid() throws ArgumentException {
-        if (token == null || token.isEmpty()) {
-            throw new ArgumentException("token");
+        if (storeId == null || storeId.isEmpty()) {
+            throw new ArgumentException("storeId");
         }
     }
 }

@@ -34,6 +34,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ArgumentException.class)
     public ApiResponse<Object> handleRuntimeException(ArgumentException e) {
         log.error("ArgumentException: ", e);
-        return ApiResponse.getFailInstance(e.getResponseConstant());
+        return ApiResponse.getInvalidArgumentFailInstance(e.getMessage());
     }
 }
