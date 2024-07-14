@@ -26,7 +26,9 @@ public class Member {
 
     private String birthday;
 
+    private Long privacyPolicyMillis;
+
     public static Member create(String email, String token, String name, String birthday) {
-        return new Member(null, email, token, name, birthday);
+        return new Member(null, email, token, name, birthday, null);
     }
 }
