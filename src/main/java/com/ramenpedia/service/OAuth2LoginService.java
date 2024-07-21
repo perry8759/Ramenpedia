@@ -43,9 +43,9 @@ public class OAuth2LoginService {
         GoogleIdToken.Payload payload = idToken.getPayload();
         String email = payload.getEmail();
         String name = payload.get("name").toString();
-//        String birthday = payload.get("birthday").toString();
+
         try {
-            memberRepository.save(Member.create(email, token, name, ""));
+            memberRepository.save(Member.create(email, token, name, null, null));
         } catch (DataIntegrityViolationException e) {
             log.info("Member has completed registration, email: {}", email, e);
         }

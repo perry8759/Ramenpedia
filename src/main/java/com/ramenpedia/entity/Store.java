@@ -56,7 +56,7 @@ public class Store {
      * 商店的評分人數。
      */
     private int scoreCount;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-    private List<StoreHashtag> storeHashtags;
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+//    private List<StoreHashtag> storeHashtags;
 }

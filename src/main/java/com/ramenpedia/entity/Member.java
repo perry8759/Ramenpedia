@@ -1,10 +1,9 @@
 package com.ramenpedia.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.sql.Blob;
 
 @Entity
 @Getter
@@ -26,9 +25,15 @@ public class Member {
 
     private String birthday;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private Blob img;
+
+    private Long createMillis;
+
     private Long privacyPolicyMillis;
 
-    public static Member create(String email, String token, String name, String birthday) {
-        return new Member(null, email, token, name, birthday, null);
+    public static Member create(String email, String token, String name, Blob img, String birthday) {
+        return new Member(null, email, token, name, birthday, img, System.currentTimeMillis(), null);
     }
 }

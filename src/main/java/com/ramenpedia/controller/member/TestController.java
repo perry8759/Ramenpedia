@@ -2,7 +2,9 @@ package com.ramenpedia.controller.member;
 
 import com.ramenpedia.base.ApiResponse;
 import com.ramenpedia.entity.Member;
+import com.ramenpedia.entity.Store;
 import com.ramenpedia.repository.MemberRepository;
+import com.ramenpedia.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +13,16 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     @Autowired
-    private MemberRepository memberRepository;
+    private StoreRepository storeRepository;
 
-    @GetMapping("/hello")
-    public ApiResponse<String> hello() throws Exception {
-        memberRepository.save(Member.create("test", "test", "test", ""));
-
-        return ApiResponse.getSuccessInstance("hello");
+    /**
+     * 測試API，用於上版後測試是否正常連接DB
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/db")
+    public ApiResponse<Store> hello() throws Exception {
+        Store store = storeRepository.findOneForTest();
+        return ApiResponse.getSuccessInstance(store);
     }
 }
