@@ -36,7 +36,7 @@ public class Member {
 
     private String nickname;
 
-    public static Member create(String email, String token, String name) {
-        return new Member(null, email, token, name, null, null, System.currentTimeMillis(), null, CodeGeneratingService.getUid(), name);
+    public static Member create(String email, String token, String name, String img) {
+        return new Member(null, email, token, name, null, img, System.currentTimeMillis(), null, CodeGeneratingService.getUid(), name);
     }
 }

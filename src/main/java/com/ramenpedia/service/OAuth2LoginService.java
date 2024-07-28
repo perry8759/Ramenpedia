@@ -9,13 +9,10 @@ import com.ramenpedia.enumerate.ResponseConstant;
 import com.ramenpedia.exception.BusinessException;
 import com.ramenpedia.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 @Service
@@ -26,12 +23,14 @@ public class OAuth2LoginService {
     private String clientId;
 
     private final MemberRepository memberRepository;
+    private final ImageService imageService;
 
-    public OAuth2LoginService(MemberRepository memberRepository) {
+    public OAuth2LoginService(MemberRepository memberRepository, ImageService imageService) {
         this.memberRepository = memberRepository;
+        this.imageService = imageService;
     }
 
-    public void google(String token) throws GeneralSecurityException, IOException {
+    public void google(String token) throws Exception {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
                 .setAudience(Collections.singleton(clientId))
                 .build();
@@ -43,10 +42,12 @@ public class OAuth2LoginService {
         GoogleIdToken.Payload payload = idToken.getPayload();
         String email = payload.getEmail();
         String name = payload.get("name").toString();
+        String photo = payload.get("picture").toString();
+        String img = imageService.downloadImage(photo);
 
         for (int i = 0; i < 3; i++) {
             try {
-                memberRepository.save(Member.create(email, token, name));
+                memberRepository.save(Member.create(email, token, name, img));
                 break;
             } catch (DataIntegrityViolationException e) {
                 log.info("Member has completed registration, email: {}", email, e);
