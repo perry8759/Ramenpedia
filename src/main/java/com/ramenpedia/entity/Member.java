@@ -1,9 +1,8 @@
 package com.ramenpedia.entity;
 
+import com.ramenpedia.service.CodeGeneratingService;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.sql.Blob;
 
 @Entity
 @Getter
@@ -27,13 +26,17 @@ public class Member {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    private Blob img;
+    private String img;
 
     private Long createMillis;
 
     private Long privacyPolicyMillis;
 
-    public static Member create(String email, String token, String name, Blob img, String birthday) {
-        return new Member(null, email, token, name, birthday, img, System.currentTimeMillis(), null);
+    private String uid;
+
+    private String nickname;
+
+    public static Member create(String email, String token, String name) {
+        return new Member(null, email, token, name, null, null, System.currentTimeMillis(), null, CodeGeneratingService.getUid(), name);
     }
 }

@@ -1,9 +1,7 @@
 package com.ramenpedia.controller.member;
 
 import com.ramenpedia.base.ApiResponse;
-import com.ramenpedia.entity.Member;
 import com.ramenpedia.entity.Store;
-import com.ramenpedia.repository.MemberRepository;
 import com.ramenpedia.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

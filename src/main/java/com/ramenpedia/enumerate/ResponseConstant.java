@@ -7,6 +7,8 @@ public enum ResponseConstant {
 
     INVALID_ARGUMENT(1000, "Invalid argument: %s"),
 
+    MEMBER_NOT_FOUND(3000, "Member not found"),
+    HASHTAG_NOT_FOUND(3001, "Hashtag not found"),
     // 成功
     SUCCESS(0, "Success"),
     UNKNOWN_ERROR(500, "Unknown error, please contact service");

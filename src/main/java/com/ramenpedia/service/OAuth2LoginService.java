@@ -44,10 +44,13 @@ public class OAuth2LoginService {
         String email = payload.getEmail();
         String name = payload.get("name").toString();
 
-        try {
-            memberRepository.save(Member.create(email, token, name, null, null));
-        } catch (DataIntegrityViolationException e) {
-            log.info("Member has completed registration, email: {}", email, e);
+        for (int i = 0; i < 3; i++) {
+            try {
+                memberRepository.save(Member.create(email, token, name));
+                break;
+            } catch (DataIntegrityViolationException e) {
+                log.info("Member has completed registration, email: {}", email, e);
+            }
         }
     }
 }
