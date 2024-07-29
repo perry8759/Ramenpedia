@@ -25,3 +25,8 @@
 logs
 
 /private_info.txt
+application.*properties
+keystore
+truststore
+fly.toml
+*.jar
