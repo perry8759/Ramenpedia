@@ -17,13 +17,6 @@ public class ControllerExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(Exception.class)
-    public ApiResponse<Object> handleException(Exception e) {
-        log.error("Exception: ", e);
-        return ApiResponse.getFailInstance(ResponseConstant.UNKNOWN_ERROR);
-    }
-
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(BusinessException.class)
     public ApiResponse<Object> handleRuntimeException(BusinessException e) {
         log.error("BusinessException: ", e);
@@ -35,5 +28,12 @@ public class ControllerExceptionHandler {
     public ApiResponse<Object> handleRuntimeException(ArgumentException e) {
         log.error("ArgumentException: ", e);
         return ApiResponse.getInvalidArgumentFailInstance(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(Exception.class)
+    public ApiResponse<Object> handleException(Exception e) {
+        log.error("Exception: ", e);
+        return ApiResponse.getFailInstance(ResponseConstant.UNKNOWN_ERROR);
     }
 }
