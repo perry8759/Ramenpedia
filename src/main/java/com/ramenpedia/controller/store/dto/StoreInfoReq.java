@@ -11,11 +11,11 @@ import lombok.ToString;
 @ToString
 public class StoreInfoReq extends BaseRequest {
 
-    private String storeId;
+    private Long storeId;
 
     @Override
     public void valid() throws ArgumentException {
-        if (storeId == null || storeId.isEmpty()) {
+        if (storeId == null) {
             throw new ArgumentException("storeId");
         }
     }

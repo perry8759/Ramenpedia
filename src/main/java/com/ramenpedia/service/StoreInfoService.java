@@ -24,15 +24,17 @@ public class StoreInfoService {
         this.storeDao = storeDao;
     }
 
-    public void getStoreInfo() {
-        log.info("getStoreInfo");
+    public StoreInfo getStoreInfo(Long storeId) {
+        Store store = storeRepository.findById(storeId).orElseThrow();
+        return new StoreInfo(store.getId(), store.getName(), store.getAddress(), store.getScore(),
+                store.getDescription());
     }
 
     public AllStoreInfoResp getAllStoreInfo(AllStoreInfoReq req) {
         Page<Store> storeList = storeDao.getAllStore(req.getStoreName(), req.getHashtagList(), req.getPage(), req.getSize());
 
         List<StoreInfo> storeInfoList = storeList.getContent().stream().map(
-                store -> new StoreInfo(store.getName(), store.getAddress(), store.getScore(), store.getDescription())
+                store -> new StoreInfo(store.getId(), store.getName(), store.getAddress(), store.getScore(), store.getDescription())
         ).toList();
 
         return new AllStoreInfoResp(storeInfoList, storeList.getTotalPages());

@@ -12,7 +12,7 @@ import org.checkerframework.checker.units.qual.N;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreInfo {
-
+    private Long storeId;
     /**
      * 商店名稱。
      */
