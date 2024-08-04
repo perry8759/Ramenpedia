@@ -36,6 +36,7 @@ public class OAuth2LoginService {
                 .build();
         GoogleIdToken idToken = verifier.verify(token);
         if (idToken == null) {
+            log.info("Invalid token, token: {}, clientId: {}", token, clientId);
             throw new BusinessException(ResponseConstant.UNKNOWN_ERROR);
         }
 
