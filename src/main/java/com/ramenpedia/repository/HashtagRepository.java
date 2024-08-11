@@ -12,11 +12,11 @@ import java.util.List;
 public interface HashtagRepository extends JpaRepository<Hashtag, Long>, JpaSpecificationExecutor<Hashtag> {
     List<Hashtag> findAllByType(HashtagType type);
 
-    @Query(value = "select h.* from member_hashtag mh left join hashtag h on(mh.fk_hashtag_if = h.id) where mh.fk_member_id = :memberId and h.type = :type",
+    @Query(value = "select h.* from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type = :type",
             nativeQuery = true)
     List<Hashtag> findByMemberIdAndType(@Param("memberId") Long memberId, @Param("type") String type);
 
-    @Query(value = "select h.* from member_hashtag mh left join hashtag h on(mh.fk_hashtag_if = h.id) where mh.fk_member_id = :memberId and h.type != :type",
+    @Query(value = "select h.* from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type != :type",
             nativeQuery = true)
     List<Hashtag> findByMemberIdAndNotType(@Param("memberId") Long memberId, @Param("type") String type);
 }

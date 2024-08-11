@@ -23,7 +23,7 @@ public class HashtagController {
         this.hashtagService = hashtagService;
     }
 
-    @GetMapping("all")
+    @GetMapping
     public ApiResponse<GetHashtagResp> getHashtag(GetHashtagReq req) {
         req.valid();
         List<Hashtag> hashtagList =  hashtagService.getHashtag(req.getType());
