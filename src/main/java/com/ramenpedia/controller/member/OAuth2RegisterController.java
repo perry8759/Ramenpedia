@@ -18,7 +18,7 @@ package com.ramenpedia.controller.member;
 
 import com.ramenpedia.base.ApiResponse;
 import com.ramenpedia.controller.member.dto.GoogleLoginReq;
-import com.ramenpedia.service.OAuth2LoginService;
+import com.ramenpedia.service.OAuth2RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,15 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("member/OAuth2")
-public class OAuth2LoginController {
+public class OAuth2RegisterController {
 
 	@Autowired
-	private OAuth2LoginService oAuth2LoginService;
+	private OAuth2RegisterService oAuth2RegisterService;
 
 	@PostMapping("/google")
 	public ApiResponse<String> google(@RequestBody GoogleLoginReq req) throws Exception {
 		req.valid();
-		oAuth2LoginService.google(req.getToken());
+		oAuth2RegisterService.google(req.getToken());
 		return ApiResponse.getSuccessInstance();
 	}
 }

@@ -17,7 +17,7 @@ import java.util.Collections;
 
 @Service
 @Slf4j
-public class OAuth2LoginService {
+public class OAuth2RegisterService {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
@@ -25,7 +25,7 @@ public class OAuth2LoginService {
     private final MemberRepository memberRepository;
     private final ImageService imageService;
 
-    public OAuth2LoginService(MemberRepository memberRepository, ImageService imageService) {
+    public OAuth2RegisterService(MemberRepository memberRepository, ImageService imageService) {
         this.memberRepository = memberRepository;
         this.imageService = imageService;
     }
@@ -45,6 +45,12 @@ public class OAuth2LoginService {
         String name = payload.get("name").toString();
         String photo = payload.get("picture").toString();
         String img = imageService.downloadImage(photo);
+
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            log.info("Member has registered, email: {}, memberId: {}", email, member.getId());
+            throw new BusinessException(ResponseConstant.MEMBER_HAS_REGISTERED);
+        }
 
         for (int i = 0; i < 3; i++) {
             try {

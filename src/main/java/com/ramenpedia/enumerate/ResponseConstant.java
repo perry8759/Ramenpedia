@@ -10,6 +10,7 @@ public enum ResponseConstant {
     MEMBER_NOT_FOUND(3000, "Member not found"),
     HASHTAG_NOT_FOUND(3001, "Hashtag not found"),
     STORE_ALREADY_IN_COLLECT_LIST(3002, "Store already in the collect list"),
+    MEMBER_HAS_REGISTERED(3003, "Member has registered"),
     // 成功
     SUCCESS(0, "Success"),
     UNKNOWN_ERROR(500, "Unknown error, please contact service");
