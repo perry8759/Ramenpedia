@@ -31,16 +31,7 @@ public class OAuth2RegisterService {
     }
 
     public void google(String token) throws Exception {
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                .setAudience(Collections.singleton(clientId))
-                .build();
-        GoogleIdToken idToken = verifier.verify(token);
-        if (idToken == null) {
-            log.info("Invalid token, token: {}, clientId: {}", token, clientId);
-            throw new BusinessException(ResponseConstant.UNKNOWN_ERROR);
-        }
-
-        GoogleIdToken.Payload payload = idToken.getPayload();
+        GoogleIdToken.Payload payload = getGooglePayload(token);
         String email = payload.getEmail();
         String name = payload.get("name").toString();
         String photo = payload.get("picture").toString();
@@ -60,5 +51,36 @@ public class OAuth2RegisterService {
                 log.info("Member has completed registration, email: {}", email, e);
             }
         }
+    }
+
+    /**
+     *
+     * @param token
+     * @return 是否已進行註冊
+     * @throws Exception
+     */
+    public boolean googleCheck(String token) throws Exception {
+        GoogleIdToken.Payload payload = getGooglePayload(token);
+        String email = payload.getEmail();
+
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            log.info("Member has registered, email: {}, memberId: {}", email, member.getId());
+            return true;
+        }
+        return false;
+    }
+
+    private GoogleIdToken.Payload getGooglePayload(String token) throws Exception {
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections.singleton(clientId))
+                .build();
+        GoogleIdToken idToken = verifier.verify(token);
+        if (idToken == null) {
+            log.info("Invalid token, token: {}, clientId: {}", token, clientId);
+            throw new BusinessException(ResponseConstant.UNKNOWN_ERROR);
+        }
+
+        return idToken.getPayload();
     }
 }

@@ -18,12 +18,11 @@ package com.ramenpedia.controller.member;
 
 import com.ramenpedia.base.ApiResponse;
 import com.ramenpedia.controller.member.dto.GoogleLoginReq;
+import com.ramenpedia.controller.member.dto.GoogleOauth2CheckReq;
+import com.ramenpedia.controller.member.dto.GoogleOauth2CheckResp;
 import com.ramenpedia.service.OAuth2RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("member/OAuth2")
@@ -37,5 +36,13 @@ public class OAuth2RegisterController {
 		req.valid();
 		oAuth2RegisterService.google(req.getToken());
 		return ApiResponse.getSuccessInstance();
+	}
+
+	@GetMapping("/google/check")
+	public ApiResponse<GoogleOauth2CheckResp> googleCheck(@RequestBody GoogleOauth2CheckReq req) throws Exception {
+		req.valid();
+		return ApiResponse.getSuccessInstance(
+				new GoogleOauth2CheckResp(oAuth2RegisterService.googleCheck(req.getToken()))
+		);
 	}
 }
