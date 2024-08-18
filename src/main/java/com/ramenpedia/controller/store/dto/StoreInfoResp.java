@@ -1,6 +1,6 @@
 package com.ramenpedia.controller.store.dto;
 
-import com.ramenpedia.service.dto.StoreInfo;
+import com.ramenpedia.service.dto.StoreInfoDetail;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,11 +30,29 @@ public class StoreInfoResp {
      */
     private String description;
 
-    public StoreInfoResp(StoreInfo info) {
+    /**
+     * 商店圖片。
+     */
+    private String img;
+
+    /**
+     * 商店的開始營業時間
+     */
+    private Long openMillis;
+
+    /**
+     * 商店的結束營業時間
+     */
+    private Long closeMillis;
+
+    public StoreInfoResp(StoreInfoDetail info) {
         this.storeId = info.getStoreId();
         this.storeName = info.getStoreName();
         this.address = info.getAddress();
         this.score = info.getScore();
         this.description = info.getDescription();
+        this.img = info.getImg();
+        this.openMillis = info.getOpenMillis();
+        this.closeMillis = info.getCloseMillis();
     }
 }

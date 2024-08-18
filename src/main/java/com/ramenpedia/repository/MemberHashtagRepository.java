@@ -11,13 +11,13 @@ public interface MemberHashtagRepository extends JpaRepository<MemberHashtag, Lo
 
     @Modifying
     @Transactional
-    @Query(value = "delete from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type != :type",
+    @Query(value = "delete mh from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type != :type",
             nativeQuery = true)
     void deleteAllByMemberIdAndNotType(@Param("memberId") Long memberId, @Param("type") String type);
 
     @Modifying
     @Transactional
-    @Query(value = "delete from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type = :type",
+    @Query(value = "delete mh from member_hashtag mh left join hashtag h on(mh.fk_hashtag_id = h.id) where mh.fk_member_id = :memberId and h.type = :type",
             nativeQuery = true)
     void deleteAllByMemberIdAndType(@Param("memberId") Long memberId, @Param("type") String type);
 }

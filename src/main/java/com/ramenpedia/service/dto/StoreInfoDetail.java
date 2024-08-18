@@ -1,17 +1,13 @@
 package com.ramenpedia.service.dto;
 
 import lombok.*;
-import org.checkerframework.checker.units.qual.N;
 
-/**
- * 代表一個商店的基本信息。
- */
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoreInfo {
+public class StoreInfoDetail {
     private Long storeId;
     /**
      * 商店名稱。
@@ -37,4 +33,14 @@ public class StoreInfo {
      * 商店圖片。
      */
     private String img;
+
+    /**
+     * 商店的開始營業時間
+     */
+    private Long openMillis;
+
+    /**
+     * 商店的結束營業時間
+     */
+    private Long closeMillis;
 }

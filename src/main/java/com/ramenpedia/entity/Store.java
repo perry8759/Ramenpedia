@@ -56,7 +56,19 @@ public class Store {
      * 商店的評分人數。
      */
     private int scoreCount;
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-//    private List<StoreHashtag> storeHashtags;
+
+    /**
+     * 商店的圖片。
+     */
+    private String img;
+
+    /**
+     * 商店的開始營業時間
+     */
+    private Long openMillis;
+
+    /**
+     * 商店的結束營業時間
+     */
+    private Long closeMillis;
 }

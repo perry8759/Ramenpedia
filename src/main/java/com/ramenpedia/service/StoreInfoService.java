@@ -6,6 +6,7 @@ import com.ramenpedia.dao.StoreDao;
 import com.ramenpedia.entity.Store;
 import com.ramenpedia.repository.StoreRepository;
 import com.ramenpedia.service.dto.StoreInfo;
+import com.ramenpedia.service.dto.StoreInfoDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,18 @@ public class StoreInfoService {
         this.storeDao = storeDao;
     }
 
-    public StoreInfo getStoreInfo(Long storeId) {
+    public StoreInfoDetail getStoreInfo(Long storeId) {
         Store store = storeRepository.findById(storeId).orElseThrow();
-        return new StoreInfo(store.getId(), store.getName(), store.getAddress(), store.getScore(),
-                store.getDescription());
+        return new StoreInfoDetail(store.getId(), store.getName(), store.getAddress(), store.getScore(),
+                store.getDescription(), store.getImg(), store.getOpenMillis(), store.getCloseMillis());
     }
 
     public AllStoreInfoResp getAllStoreInfo(AllStoreInfoReq req) {
         Page<Store> storeList = storeDao.getAllStore(req.getStoreName(), req.getHashtagList(), req.getPage(), req.getSize());
 
         List<StoreInfo> storeInfoList = storeList.getContent().stream().map(
-                store -> new StoreInfo(store.getId(), store.getName(), store.getAddress(), store.getScore(), store.getDescription())
+                store -> new StoreInfo(store.getId(), store.getName(), store.getAddress(), store.getScore(),
+                        store.getDescription(), store.getImg())
         ).toList();
 
         return new AllStoreInfoResp(storeInfoList, storeList.getTotalPages());

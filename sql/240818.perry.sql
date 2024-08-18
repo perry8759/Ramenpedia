@@ -1,0 +1,3 @@
+ALTER TABLE store ADD COLUMN open_millis BIGINT(20);
+ALTER TABLE store ADD COLUMN close_millis BIGINT(20);
+ALTER TABLE store ADD COLUMN img BLOB;

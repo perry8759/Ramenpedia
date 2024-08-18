@@ -7,6 +7,7 @@ import com.ramenpedia.controller.store.dto.StoreInfoReq;
 import com.ramenpedia.controller.store.dto.StoreInfoResp;
 import com.ramenpedia.service.StoreInfoService;
 import com.ramenpedia.service.dto.StoreInfo;
+import com.ramenpedia.service.dto.StoreInfoDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class StoreInfoController {
     @GetMapping
     public ApiResponse<StoreInfoResp> getStoreInfo(StoreInfoReq req) {
         req.valid();
-        StoreInfo info = storeInfoService.getStoreInfo(req.getStoreId());
+        StoreInfoDetail info = storeInfoService.getStoreInfo(req.getStoreId());
         return ApiResponse.getSuccessInstance(new StoreInfoResp(info));
     }
 
