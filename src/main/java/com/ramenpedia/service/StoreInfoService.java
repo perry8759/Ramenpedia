@@ -6,6 +6,7 @@ import com.ramenpedia.controller.store.dto.BusinessHoursInfo;
 import com.ramenpedia.dao.StoreDao;
 import com.ramenpedia.entity.Store;
 import com.ramenpedia.entity.StoreBusinessHours;
+import com.ramenpedia.enumerate.StoreBusinessStatus;
 import com.ramenpedia.repository.StoreRepository;
 import com.ramenpedia.service.dto.StoreInfo;
 import com.ramenpedia.service.dto.StoreInfoDetail;
@@ -44,9 +45,9 @@ public class StoreInfoService {
                     new BusinessHoursInfo(businessHours.getOpenTime(), businessHours.getCloseTime()));
         }
 
-        StoreInfoDetail.Status status = switch (store.getStatus()) {
-            case NORMAL -> StoreInfoDetail.Status.NORMAL;
-            case CLOSED -> StoreInfoDetail.Status.CLOSED;
+        StoreBusinessStatus status = switch (store.getStatus()) {
+            case NORMAL -> StoreBusinessStatus.NORMAL;
+            case CLOSED -> StoreBusinessStatus.CLOSED;
         };
 
         return new StoreInfoDetail(store.getId(), store.getName(), store.getAddress(), store.getScore(),

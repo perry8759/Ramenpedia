@@ -36,7 +36,7 @@ public class CollectStoreService {
         return collectStoreList.stream().map(
                 collectStore -> new StoreInfo(collectStore.getStore().getId(), collectStore.getStore().getName(),
                         collectStore.getStore().getAddress(), collectStore.getStore().getScore(),
-                        collectStore.getStore().getDescription())
+                        collectStore.getStore().getDescription(), collectStore.getStore().getImg())
         ).toList();
     }
 

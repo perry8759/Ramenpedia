@@ -1,5 +1,6 @@
 package com.ramenpedia.controller.store.dto;
 
+import com.ramenpedia.enumerate.StoreBusinessStatus;
 import com.ramenpedia.service.dto.StoreInfoDetail;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +42,7 @@ public class StoreInfoResp {
     /**
      * 商店狀態。
      */
-    private StoreInfoDetail.Status status;
+    private StoreBusinessStatus status;
 
     /**
      * 商店營業時間資料
