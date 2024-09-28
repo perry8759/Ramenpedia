@@ -1,6 +1,10 @@
 package com.ramenpedia.service.dto;
 
+import com.ramenpedia.controller.store.dto.BusinessHoursInfo;
 import lombok.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -8,6 +12,28 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreInfoDetail {
+    public enum Status {
+        /**
+         * 正常
+         */
+        NORMAL,
+
+        /**
+         * 固定公休
+         */
+        FIXED_PUBLIC_HOLIDAYS,
+
+        /**
+         * 臨時公休
+         */
+        TEMPORARY_HOLIDAY,
+
+        /**
+         * 歇業
+         */
+        CLOSED;
+    }
+
     private Long storeId;
     /**
      * 商店名稱。
@@ -43,4 +69,14 @@ public class StoreInfoDetail {
      * 商店的結束營業時間
      */
     private Long closeMillis;
+
+    /**
+     * 商店狀態。
+     */
+    private Status status;
+
+    /**
+     * 商店營業時間資料
+     */
+    private Map<Integer, List<BusinessHoursInfo>> businessHoursInfoMap;
 }

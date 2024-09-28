@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
 @ToString
@@ -36,14 +39,14 @@ public class StoreInfoResp {
     private String img;
 
     /**
-     * 商店的開始營業時間
+     * 商店狀態。
      */
-    private Long openMillis;
+    private StoreInfoDetail.Status status;
 
     /**
-     * 商店的結束營業時間
+     * 商店營業時間資料
      */
-    private Long closeMillis;
+    private Map<Integer, List<BusinessHoursInfo>> businessHoursInfoList;
 
     public StoreInfoResp(StoreInfoDetail info) {
         this.storeId = info.getStoreId();
@@ -52,7 +55,7 @@ public class StoreInfoResp {
         this.score = info.getScore();
         this.description = info.getDescription();
         this.img = info.getImg();
-        this.openMillis = info.getOpenMillis();
-        this.closeMillis = info.getCloseMillis();
+        this.status = info.getStatus();
+        this.businessHoursInfoList = info.getBusinessHoursInfoMap();
     }
 }

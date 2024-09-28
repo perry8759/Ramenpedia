@@ -16,6 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store {
+    public enum Status {
+        /**
+         * 正常
+         */
+        NORMAL,
+
+        /**
+         * 歇業
+         */
+        CLOSED;
+    }
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -71,4 +82,12 @@ public class Store {
      * 商店的結束營業時間
      */
     private Long closeMillis;
+
+    /**
+     * 商店營業狀態
+     */
+    private Status status;
+
+    @OneToMany(mappedBy = "store")
+    private List<StoreBusinessHours> storeBusinessHours;
 }
