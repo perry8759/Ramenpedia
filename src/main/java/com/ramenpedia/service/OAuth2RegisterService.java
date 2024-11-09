@@ -71,6 +71,23 @@ public class OAuth2RegisterService {
         return false;
     }
 
+    /**
+     *
+     * @param token
+     * @return 是否已進行註冊
+     * @throws Exception
+     */
+    public Member getMember(String token) throws Exception {
+        GoogleIdToken.Payload payload = getGooglePayload(token);
+        String email = payload.getEmail();
+
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            log.info("Member has registered, email: {}, memberId: {}", email, member.getId());
+        }
+        return member;
+    }
+
     private GoogleIdToken.Payload getGooglePayload(String token) throws Exception {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
                 .setAudience(Collections.singleton(clientId))

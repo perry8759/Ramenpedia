@@ -1,15 +1,15 @@
-package com.ramenpedia.controller.websocket.dto;
+package com.ramenpedia.handler.dto;
 
 import com.ramenpedia.enumerate.StoreBusinessStatus;
-import com.ramenpedia.service.dto.StoreInfo;
-import com.ramenpedia.service.dto.StoreInfoDetail;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class BusinessHoursMessage {
     private StoreBusinessStatus status;
 }

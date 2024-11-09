@@ -1,4 +1,4 @@
-package com.ramenpedia.controller.websocket.dto;
+package com.ramenpedia.handler.dto;
 
 import com.ramenpedia.entity.QueueMessageRecord;
 import com.ramenpedia.enumerate.StoreBusinessStatus;

@@ -10,7 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
         "com.ramenpedia.config",
         "com.ramenpedia.interceptor",
         "com.ramenpedia.filter",
-        "com.ramenpedia.dao"})
+        "com.ramenpedia.dao",
+        "com.ramenpedia.handler",})
 public class RamenpediaApplication {
     public static void main(String[] args) {
         SpringApplication.run(RamenpediaApplication.class, args);

@@ -1,16 +1,16 @@
-package com.ramenpedia.controller.websocket.dto;
+package com.ramenpedia.handler.dto;
 
 import com.ramenpedia.entity.QueueMessageRecord;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class QueueSend {
+public class LimitedSend {
     private Long returnerId;
     private QueueMessageRecord.Type type;
-    private Integer nowQueuePersonCount;
+    private Integer remainingQuantity;
     private Long createMillis;
 }

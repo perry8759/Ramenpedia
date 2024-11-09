@@ -1,13 +1,13 @@
 package com.ramenpedia.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ramenpedia.controller.websocket.dto.*;
 import com.ramenpedia.entity.Member;
 import com.ramenpedia.entity.QueueMessageRecord;
 import com.ramenpedia.entity.Store;
 import com.ramenpedia.enumerate.ResponseConstant;
 import com.ramenpedia.enumerate.StoreBusinessStatus;
 import com.ramenpedia.exception.BusinessException;
+import com.ramenpedia.handler.dto.*;
 import com.ramenpedia.repository.MemberRepository;
 import com.ramenpedia.repository.QueueMessageRecordRepository;
 import com.ramenpedia.repository.StoreRepository;
@@ -28,7 +28,7 @@ public class QueueWsService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public BusinessHoursSend businessHours(Long storeId, BusinessHoursMessage message, String email) throws Exception {
+    public BusinessHoursSend businessHours(StoreBusinessStatus status, Long storeId, String email) throws Exception {
         Store store = storeRepository.findById(storeId).orElseThrow();
         Member member = memberRepository.findByEmail(email);
         if (member == null) {
@@ -37,12 +37,12 @@ public class QueueWsService {
 
         QueueMessageRecord queueMessageRecord = queueMessageRecordRepository.save(
                 new QueueMessageRecord(member.getId(), store.getId(),
-                QueueMessageRecord.Type.BUSINESS_HOURS, objectMapper.writeValueAsString(message)));
-        return new BusinessHoursSend(member.getId(), QueueMessageRecord.Type.BUSINESS_HOURS, message.getStatus(),
+                QueueMessageRecord.Type.BUSINESS_HOURS, status.toString()));
+        return new BusinessHoursSend(member.getId(), QueueMessageRecord.Type.BUSINESS_HOURS, status,
                 queueMessageRecord.getCreateMillis());
     }
 
-    public QueueSend queue(Long storeId, QueueMessage message, String email) throws Exception {
+    public QueueSend queue(Integer nowQueuePersonCount, Long storeId, String email) throws Exception {
         Store store = storeRepository.findById(storeId).orElseThrow();
         Member member = memberRepository.findByEmail(email);
         if (member == null) {
@@ -51,12 +51,12 @@ public class QueueWsService {
 
         QueueMessageRecord queueMessageRecord = queueMessageRecordRepository.save(
                 new QueueMessageRecord(member.getId(), store.getId(),
-                        QueueMessageRecord.Type.QUEUE, objectMapper.writeValueAsString(message)));
-        return new QueueSend(member.getId(), QueueMessageRecord.Type.QUEUE, message.getNowQueuePersonCount(),
+                        QueueMessageRecord.Type.QUEUE, nowQueuePersonCount.toString()));
+        return new QueueSend(member.getId(), QueueMessageRecord.Type.QUEUE, nowQueuePersonCount,
                 queueMessageRecord.getCreateMillis());
     }
 
-    public LimitedSend limited(Long storeId, LimitedMessage message, String email) throws Exception {
+    public LimitedSend limited(Integer remainingQuantity, Long storeId, String email) throws Exception {
         Store store = storeRepository.findById(storeId).orElseThrow();
         Member member = memberRepository.findByEmail(email);
         if (member == null) {
@@ -65,8 +65,8 @@ public class QueueWsService {
 
         QueueMessageRecord queueMessageRecord = queueMessageRecordRepository.save(
                 new QueueMessageRecord(member.getId(), store.getId(),
-                        QueueMessageRecord.Type.LIMITED, objectMapper.writeValueAsString(message)));
-        return new LimitedSend(member.getId(), QueueMessageRecord.Type.LIMITED, message.getRemainingQuantity(),
+                        QueueMessageRecord.Type.LIMITED, remainingQuantity.toString()));
+        return new LimitedSend(member.getId(), QueueMessageRecord.Type.LIMITED, remainingQuantity,
                 queueMessageRecord.getCreateMillis());
     }
 }
